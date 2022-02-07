@@ -45,3 +45,8 @@
 #### 동일하게 head 태그 안에 script 태그 추가해서 사용해도 됨
 #### next/script 모듈 사용 가능(posts/first-post 참조
 	- https://nextjs.org/docs/basic-features/script
+
+### CSS Styling 
+#### tailwind https://tailwindcss.com/docs/guides/nextjs
+### Layout Component
+### Global Styles <- 여기서부터 시작 위에꺼 모르고 지워버림 쥐엔자앙
