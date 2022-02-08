@@ -74,4 +74,42 @@
 - pre rendering 차이임
 ### 2. Two Forms of Pre-rendering
 ### 2-1. Static Generation과 Server-side Rendering 두 방식의 Pre-rendering을 제공하고 있음
-- 
+- Static Generation은 build 할 때 한번 생성. 각 요청마다 빌드한 html 파일만 보냄
+- Server-side Rendering 은 리퀘스트 할때마다 서버에서 생성해서 보여줌
+#### 대부분의 페이지는 static 으로 그외는 server side rendering 으로 처리하는게 좋음
+#### 잘  배분해서 해야함
+### 3. Static Generation with and without data 
+#### static generation 이지만 외부 데이터를 가져와야하는 경우가 있다면 getStaticProps를 쓰면 됨
+### 4. Blog Data
+#### 테스트하기 위해 md 파일 생성 후 소스 복붙 (텍스트 데이터임)
+#### 데이터를 어떻게 가져올 것이냐 ? md 파일을 자세히 보면 title하고 date가 있는데 이걸 키값으로 잡고 가져올거임.
+- url을 unique한 seq로 설정함
+### 5. Implement getStaticProps
+#### 먼저 md 파일을 parsing 하기 위해 패키지 설치
+- yarn add gray-matter
+#### 최상위 디렉토리에 lib 이라는 폴더를 만들고 posts.js 생성
+- 데이터를 가져올 수 있도록 코딩
+#### index js 파일 내부에서 posts.js 를 호출하도록 코드 작성
+- getStaticProps function 사용
+- 이걸 통해서 데이터 가져오는 함수를 부르면 매개변수로 받을 수 있음
+### 6. getStaticProps Details
+#### 만약 외부에서 data를 받아온다면 아까 만든 posts.js 에서
+	- const res = await fetch('...')
+	- return res.json()
+#### 내부 데이터베이스에서 가져온다면 쿼리를 posts.js 에 이렇게
+	- import someDatabaseSDK from "someDatabaseSDK"
+	 const databaseClient = someDatabaseSDK.createClient(...)
+	 export async function getSortedPostsData(){
+	 ...
+		return databaseClient.query("SELECT ... ");
+	}
+#### development 단계에서 getStaticProps는 매 호출때마다 불러오지만 production 단계에서는 build 할때만 호출됨
+#### fallback key를 활용해서 다르게 처리할 수 있다는 거 같음(이건 찾아봐야할듯)
+### 7. Fetching Data at Request Time
+#### request 때마다 데이터를 불러와야한다면 server-side rendering을 사용
+- getServerSideProps 사용
+#### swr 이라는 패키지가 있으니 참고할것 이게 좋다고 하는거 같은데
+- https://swr.vercel.app/ko/examples/basic 
+
+
+## Dynamic Routes
