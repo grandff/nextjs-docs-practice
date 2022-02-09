@@ -38,3 +38,41 @@ export function getSortedPostsData(){
 		}
 	})
 }
+
+// md 파일 목록 전송
+export function getAllPostIds(){
+	const fileNames = fs.readdirSync(postsDirectory);
+	/* 아래처럼 데이터가 리턴될거임
+		{
+			params : {
+				id : 'ssg-ssr'
+			}
+		},
+		{
+			params : {
+				id : 'pre-rendering'
+			}
+		}
+	*/
+	return fileNames.map(fileName => {
+		return {
+			params : {
+				id : fileName.replace(/\.md$/, '')
+			}
+		}
+	})
+}
+
+// data post
+export function getPostData(id){
+	const fullPath = path.join(postsDirectory, `${id}.md`);	
+	const fileContents = fs.readFileSync(fullPath, 'utf8');
+	
+	// parasing
+	const matterResult = matter(fileContents);
+	
+	return {
+		id,
+		...matterResult.data
+	}
+}

@@ -113,3 +113,25 @@
 
 
 ## Dynamic Routes
+### 1. Page Path Depends on External Data
+#### dynamic urls을 사용해서 데이터를 같이 넘길 수 있음
+### 2. Implement getStaticPaths
+#### pages/posts 디렉토리에 [id].js 파일 생성
+- layout component 추가하기
+#### first-post.js 파일 삭제하기
+#### lib/posts.js 에서 getAllPostIds function을 하단에 추가
+- posts 폴더에 있는 파일 목록을 리턴해줄거임
+- !!! 여기서 중요한건 string array가 아니라 objects array라는 거임 (key - value 형태를 말하는거 같음)
+#### [id].js 에 getStaticPaths 메서드 추가하기
+### 3. Implement getStaticProps
+#### id 값을 통해 data를 전달할거임
+#### posts.js로 가서 getPostData 추가하기
+- id를 key로 한 데이터를 보낼거임
+#### [id].js 에서 postdata 항목 추가하기
+#### url/posts/FILE_NAME.md 를 하면 해당 md 파일에 맞는 데이터가 나옴
+#### [id].js의 동작을 다시 보자면...
+1. URL/posts/FILE_NAME 호출
+2. getStaticPaths 를 통해 id 목록 가져옴(파일이름)
+3. getStaticProps 를 통해 해당 파일의 데이터 가져옴
+4. Layout component 안에 데이터 출력
+##### 좀 어렵네요...
