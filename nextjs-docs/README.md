@@ -135,3 +135,12 @@
 3. getStaticProps 를 통해 해당 파일의 데이터 가져옴
 4. Layout component 안에 데이터 출력
 ##### 좀 어렵네요...
+### 4. Render Markdown
+#### markdon content를 위한 라이브러리인 remark 사용
+	- yarn add remark remark-html
+#### lib/posts.js 에 remark import 
+#### remark를 사용해서 getPostData 수정하기
+- async await 이므로 [id].js 에서 getPostData에 await를 붙여야함
+#### 마지막으로 [id].js 에 dangerouslySetInnerHTML 추가
+- html 코드를 div 안에 넣어줘야하니까 prop을 추가하는듯
+### 5. Polishing the Post Page

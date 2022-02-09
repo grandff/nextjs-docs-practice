@@ -3,8 +3,7 @@ import {getAllPostIds, getPostData} from "../../lib/posts";
 
 // get static paths
 export async function getStaticPaths(){	
-	const paths = getAllPostIds()
-	console.log('path : ', paths)
+	const paths = getAllPostIds()	
 	return {
 		paths,
 		fallback : false
@@ -12,9 +11,8 @@ export async function getStaticPaths(){
 }
 
 // get data
-export async function getStaticProps({params}){	
-	console.log(params)
-	const postData = getPostData(params.id)
+export async function getStaticProps({params}){		
+	const postData = await getPostData(params.id)
 	return {
 		props : {
 			postData
@@ -30,6 +28,7 @@ export default function Post({postData}){
 			{postData.id}
 			<br/>
 			{postData.date}
+			<div dangerouslySetInnerHTML = {{__html : postData.contentHtml}} />
 		</Layout>
 	)
 }
