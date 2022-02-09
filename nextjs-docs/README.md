@@ -144,3 +144,46 @@
 #### 마지막으로 [id].js 에 dangerouslySetInnerHTML 추가
 - html 코드를 div 안에 넣어줘야하니까 prop을 추가하는듯
 ### 5. Polishing the Post Page
+#### post data를 사용해서 title tag의 값 변경
+- [id].js 에 Head import 후 사용
+#### date formatting을 위해 date-fns 라이브러리 사용
+	- yarn add date-fns
+- date component 처리를 위해 compnents/date.js 생성 후 코딩
+- [id].js 에 component import 처리
+### 6. Polishing the Index Page
+#### index page를 좀 더 이쁘게 수정 link component를 추가해서 인덱스 페이지 스럽게 만들거임
+### 7. Dynamic Routes Details
+#### getStaticProps, getStaticPaths는 외부 api를 통해서도 데이터 받아올 수 있음
+	- export async function getAllPostIds(){
+		const res = await fetch('...')
+		const posts = await res.json()
+		return posts.map(post => {
+			return {
+				params : {
+					id : post.id
+				}
+			}
+		})
+	}
+#### fallback false는 return 되는 값이 없을때 404 page로 이동할것임
+#### 그 외 자세한건 fallback documentation 참조
+#### 만약 pages/posts/[...id].js 이렇게 호출하면 /posts/a , /posts/a/b 다 호출 가능
+#### next router에 접근하고 싶으면 useRouter 사용(next/router import)
+#### 404 pages를 수정하고 싶으면 pages/404.js 생성
+
+
+## API Routes
+### 1. Creating API Routes
+#### pages/api 에 api endpoint 처리해주는 파일 생성
+- pages/api/hello.js
+#### /api/hello 로 접근하면 json 파일이 보여짐
+### 2. API Routes Details
+#### getStaticProps와 getStaticPaths로부터 api route를 받아오면 안된다...?
+#### 위 두개 메서드는 server side에서 처리해야함. 절대 client side에서 호출하면 안됨
+#### form input을 handling 하는데 가장 좋음
+
+
+## Deploying Your Next.js App
+### 1. Deploy to Vercel
+#### vercel에 하는게 제일 좋음
+#### 
